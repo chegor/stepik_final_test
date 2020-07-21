@@ -13,7 +13,11 @@ list_of_urls = ["http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_
                 "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer8",
                 "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer9"]
 
-@pytest.mark.parametrize('link', list_of_urls )
+
+product_pages = ["http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207"]
+
+
+@pytest.mark.parametrize('link', list_of_urls)
 def test_guest_can_add_product_to_basket(browser, link):
     page = ProductPage(browser, link)
     page.open()
@@ -23,11 +27,30 @@ def test_guest_can_add_product_to_basket(browser, link):
     page.product_price_is_right()
     time.sleep(2)
 
-def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
-    link = 'http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207'
-    page = ProductPage(browser, link)
+
+@pytest.mark.parametrize('product_page', product_pages)
+@pytest.mark.skip(reason="ORIGINALLY BROKEN")
+def test_guest_cant_see_success_message_after_adding_product_to_basket(browser, product_page):
+    page = ProductPage(browser, product_page)
     page.open()
     page.add_product_to_basket()
-    page.is_not_element_present()
+    page.should_not_be_success_message()
+
+
+@pytest.mark.parametrize('product_page', product_pages)
+def test_guest_cant_see_success_message(browser, product_page):
+    page = ProductPage(browser, product_page)
+    page.open()
+    page.should_not_be_success_message()
+
+
+@pytest.mark.xfail(reason="Originally xfailed")
+@pytest.mark.parametrize('product_page', product_pages)
+def test_message_disappeared_after_adding_product_to_basket(browser, product_page):
+    page = ProductPage(browser, product_page)
+    page.open()
+    page.add_product_to_basket()
+    page.message_should_disappear()
+
 
 

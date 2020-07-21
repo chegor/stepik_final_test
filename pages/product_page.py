@@ -1,5 +1,8 @@
 from .base_page import BasePage
 from .locators import ProductPageLocators
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+
 
 class ProductPage(BasePage):
 
@@ -22,5 +25,7 @@ class ProductPage(BasePage):
         assert added_product_price.text == page_price.text, "WRONG PRICE ADDED in basket"
 
     def should_not_be_success_message(self):
-        assert self.is_not_element_present(*ProductPageLocators.SUCCESS_MESSAGE), \
-            "Success message is presented, but should not be"
+        assert self.is_not_element_present(*ProductPageLocators.SUCCESS_MESSAGE), "Success message is presented, but should not be"
+
+    def message_should_disappear(self):
+        assert self.is_disappeared(*ProductPageLocators.SUCCESS_MESSAGE), "Success message is presented, but should disappear"
