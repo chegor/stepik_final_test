@@ -21,3 +21,6 @@ class ProductPage(BasePage):
         #print(page_price.text)
         assert added_product_price.text == page_price.text, "WRONG PRICE ADDED in basket"
 
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.SUCCESS_MESSAGE), \
+            "Success message is presented, but should not be"

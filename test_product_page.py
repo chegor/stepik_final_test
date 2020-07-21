@@ -21,6 +21,13 @@ def test_guest_can_add_product_to_basket(browser, link):
     page.solve_quiz_and_get_code()
     page.product_name_is_right()
     page.product_price_is_right()
-    time.sleep(1)
+    time.sleep(2)
+
+def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
+    link = 'http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207'
+    page = ProductPage(browser, link)
+    page.open()
+    page.add_product_to_basket()
+    page.is_not_element_present()
 
 

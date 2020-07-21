@@ -14,3 +14,4 @@ class ProductPageLocators():
     PAGE_H1 = (By.CSS_SELECTOR, "h1")
     BASKET_TOTAL_PRICE = (By.CSS_SELECTOR, ".alert-info p strong")
     PRODUCT_PRICE = (By.CSS_SELECTOR, "p.price_color")
+    SUCCESS_MESSAGE = (By.CSS_SELECTOR, "div.alert-success")
